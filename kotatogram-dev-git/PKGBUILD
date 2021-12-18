@@ -4,6 +4,7 @@
 # Contributor: Ilya Fedin <fedin-ilja2010@ya.ru>
 # Contributor: Auteiy <dmitry@auteiy.me>
 
+options=(lto)
 pkgname=kotatogram-dev-git
 _pkgname=kotatogram-desktop
 pkgver=k1.4.5.r550.gb9a479517
@@ -180,7 +181,7 @@ build() {
         -DCMAKE_BUILD_TYPE=Release \
         -DTG_OWT_BUILD_AUDIO_BACKENDS=OFF \
         -DBUILD_SHARED_LIBS=OFF
-    cmake --build build
+    cmake --build build -j$(($(nproc)+1))
 
     cd "${srcdir}/${_pkgname}"
     cmake . \
@@ -191,7 +192,7 @@ build() {
         -DDESKTOP_APP_QT6=off \
         -Dtg_owt_DIR="${srcdir}/${_pkgname}-tg_owt/build" \
         -DTDESKTOP_API_TEST=ON
-    cmake --build build
+    cmake --build build -j$(($(nproc)+1))
 }
 
 package() {
