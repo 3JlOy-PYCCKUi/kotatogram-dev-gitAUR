@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!upstream"
+      - "!upstream/**"
+
+jobs:
+  kotatogram-dev-git:
+    runs-on: ubuntu-latest
+    name: Build kotatogram-dev-git
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build
+        uses: ./
+        with:
+          package-name: kotatogram-dev-git
